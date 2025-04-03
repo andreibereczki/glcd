@@ -8,28 +8,33 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint"
+    "lint": "npx eslint --fix"
   },
   "author": "",
   "license": "UNLICENSED",
   "description": "",
   "dependencies": {
-    "@angular/animations": "^17.3.0",
-    "@angular/common": "^17.3.0",
-    "@angular/compiler": "^17.3.0",
-    "@angular/core": "^17.3.0",
-    "@angular/forms": "^17.3.0",
-    "@angular/platform-browser": "^17.3.0",
-    "@angular/platform-browser-dynamic": "^17.3.0",
-    "@angular/router": "^17.3.0",
-    "rxjs": "~7.8.0",
+    "@angular/animations": "^19.2.5",
+    "@angular/common": "^19.2.5",
+    "@angular/compiler": "^19.2.5",
+    "@angular/core": "^19.2.5",
+    "@angular/forms": "^19.2.5",
+    "@angular/platform-browser": "^19.2.5",
+    "@angular/platform-browser-dynamic": "^19.2.5",
+    "@angular/router": "^19.2.5",
+    "rxjs": "^7.8.1",
     "tslib": "^2.3.0",
-    "zone.js": "~0.14.3"
+    "zone.js": "~0.15.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^17.3.11",
-    "@angular/cli": "^17.3.15",
-    "@angular/compiler-cli": "^17.3.0",
-    "angular-eslint": "19.3.0"
+    "@angular-devkit/build-angular": "^19.2.6",
+    "@angular/cli": "^19.2.6",
+    "@angular/compiler-cli": "^19.2.5",
+    "angular-eslint": "19.3.0",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-import-resolver-typescript": "^4.3.1",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-prettier": "^5.2.6",
+    "jest-environment-jsdom": "^29.7.0"
   }
 }
