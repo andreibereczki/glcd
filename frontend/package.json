@@ -10,9 +10,6 @@
     "test": "ng test",
     "lint": "npx eslint --fix"
   },
-  "author": "",
-  "license": "UNLICENSED",
-  "description": "",
   "dependencies": {
     "@angular/animations": "^19.2.5",
     "@angular/common": "^19.2.5",
