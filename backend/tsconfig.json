@@ -1,0 +1,27 @@
+
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "target": "ES2022",
+    "module": "ES2022",
+    "rootDir": "./",
+    "outDir": "./build",
+    "strict": true,
+    "baseUrl": "./src",
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "sourceMap": false,
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "noUnusedLocals": true,
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*", "tests/**/*"],
+  "ts-node": {
+    "esm": true
+  },
+  "rules": {
+    "no-unused-vars": "off"
+  }
+}

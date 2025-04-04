@@ -2,8 +2,23 @@
   "name": "glcd-backend",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "lint": "npx eslint --fix",
-    "test": "npx jest"
+    "test": "npx jest",
+    "start": "npx tsx watch src/main.ts",
+    "build": "npm tsc"
+  },
+  "dependencies": {
+    "console-table-printer": "^2.12.1",
+    "dotenv": "^16.4.7",
+    "express": "^5.1.0",
+    "reflect-metadata": "^0.2.2",
+    "tsyringe": "^4.9.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.1",
+    "@types/node": "^22.14.0",
+    "tsx": "^4.19.3"
   }
 }
