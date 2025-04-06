@@ -9,7 +9,7 @@ export const bootstrapSwaggerUi = (router: Router) => {
       url: "/api/swagger/swagger.json",
     },
   }
-  router.get("/api/swagger/swagger.json", (req, res) => {
+  router.get("/swagger/swagger.json", (req, res) => {
     swaggerDocument.info.version = version;
     res.json(swaggerDocument);
   });
