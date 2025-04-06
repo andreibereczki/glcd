@@ -9,7 +9,7 @@
     "prebuild": "npm run tsoa",
     "start": "npm run prebuild && npx tsx watch src/main.ts",
     "build": "npm tsc",
-    "tsoa": "tsoa spec-and-routes"
+    "tsoa": "npx tsoa spec-and-routes"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",

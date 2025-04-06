@@ -40,4 +40,16 @@ export class Companies implements Repository<CompanyDto, AddCompanyDto> {
 
     await this._db.oneOrNone<CompanyDto>(query, [id]);
   }
+
+  public async getByField(fields: Record<string, unknown>): Promise<CompanyDto | null> {
+    let query = 'SELECT * FROM companies WHERE ';
+    const queryParams: unknown[] = [];
+
+    Object.keys(fields).forEach((field, index) => {
+      query += `${field} = $${index + 1} `;
+      queryParams.push(fields[field]);
+    });
+
+    return this._db.oneOrNone<CompanyDto>(query, queryParams);
+  }
 }

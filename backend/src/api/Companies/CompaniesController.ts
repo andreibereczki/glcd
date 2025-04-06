@@ -24,6 +24,40 @@ export class CompaniesController extends Controller {
     return await this._companiesRepository.getAll!();
   }
 
+  @SuccessResponse(StatusCodes.OK, 'Get company record by Id')
+  @Response(StatusCodes.INTERNAL_SERVER_ERROR, 'Something went wrong')
+  @Middlewares(authMiddleware)
+  @Get("id/{companyId}")
+  public async getById(@Path() companyId: number): Promise<CompanyDto | null> {
+    const company = await this._companiesRepository.getByField!({
+      id: companyId
+    });
+
+    if (company === null) {
+      this.setStatus(StatusCodes.NOT_FOUND);
+      return null;
+    }
+
+    return company;
+  }
+
+  @SuccessResponse(StatusCodes.OK, 'Get company record by ISIN')
+  @Response(StatusCodes.INTERNAL_SERVER_ERROR, 'Something went wrong')
+  @Middlewares(authMiddleware)
+  @Get("isin/{companyIsin}")
+  public async getByIsin(@Path() companyIsin: string): Promise<CompanyDto | null> {
+    const company = await this._companiesRepository.getByField!({
+      isin: companyIsin
+    });
+
+    if (company === null) {
+      this.setStatus(StatusCodes.NOT_FOUND);
+      return null;
+    }
+
+    return company;
+  }
+
   @SuccessResponse(StatusCodes.OK, 'Create new company record')
   @Response(StatusCodes.INTERNAL_SERVER_ERROR, 'Something went wrong')
   @Middlewares(authMiddleware)
