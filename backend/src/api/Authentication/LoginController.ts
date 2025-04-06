@@ -34,10 +34,10 @@ export class LoginController extends Controller {
     const isCorrectPassword = await compare(body.password, user.password);
 
     if(!isCorrectPassword) {
+      this.setStatus(StatusCodes.UNAUTHORIZED);
       return;
     }
 
-    //generate jwt
     const token = jwt.sign({ username: body.username }, 'glass-lewis-super-secret-key', {
       expiresIn: `${this._tokenExpirationTimeInSeconds/60/60}h`
     });
