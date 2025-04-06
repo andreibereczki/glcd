@@ -1,16 +1,17 @@
 import { inject, injectable } from 'tsyringe';
-import { Body, Controller, Post, Route, SuccessResponse, Response, Tags } from 'tsoa';
+import { Body, Controller, Post, Route, SuccessResponse, Response, Tags, Get, Middlewares } from 'tsoa';
 import { InfrastructureDiType } from '../../infrastructure/infrastructure-di-type';
 import { Repository } from '../../infrastructure/repositories/Companies.interface';
 import { StatusCodes } from 'http-status-codes';
 import { AddUserDto, UserDto } from '../../infrastructure/repositories/Users';
 import { compare } from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import { authMiddleware } from '../../infrastructure/express/middlewares/authMiddleware';
 
 @injectable()
-@Route('login')
-@Tags('Login')
-export class LoginController extends Controller {
+@Route('authentication')
+@Tags('Authentication')
+export class AuthenticationController extends Controller {
   private readonly _tokenExpirationTimeInSeconds = 2 * 60 * 60;
 
   constructor(
@@ -21,7 +22,7 @@ export class LoginController extends Controller {
 
   @SuccessResponse(StatusCodes.OK, 'Login')
   @Response(StatusCodes.INTERNAL_SERVER_ERROR, 'Something went wrong')
-  @Post()
+  @Post('login')
   public async login(@Body() body: Partial<UserDto>): Promise<void> {
     const user = await this._usersRepository.getByField!({ username: body.username });
 
@@ -42,6 +43,12 @@ export class LoginController extends Controller {
       expiresIn: `${this._tokenExpirationTimeInSeconds/60/60}h`
     });
 
-    this.setHeader('set-cookie', `token=${token}; HttpOnly; Max-Age=${this._tokenExpirationTimeInSeconds}`);
+    this.setHeader('set-cookie', `token=${token}; HttpOnly; Max-Age=${this._tokenExpirationTimeInSeconds}; Path=/api`);
   }
+
+  @SuccessResponse(StatusCodes.OK, 'Verify')
+  @Response(StatusCodes.INTERNAL_SERVER_ERROR, 'Something went wrong')
+  @Middlewares(authMiddleware)
+  @Get('verify')
+  public async verify(): Promise<void> {}
 }

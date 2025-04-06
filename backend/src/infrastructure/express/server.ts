@@ -5,6 +5,7 @@ import { fallbackMiddleware } from './middlewares/fallbackMiddleware';
 import { RegisterRoutes } from "../../../build/routes/routes";
 import { Table } from 'console-table-printer';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 
 export function createServer() {
   const app: express.Application = express();
@@ -22,6 +23,9 @@ export function createServer() {
   app.use(express.json());
 
   const router = express.Router();
+  router.use(cors({
+    origin: 'http://localhost:4200'
+  }));
   RegisterRoutes(router);
   bootstrapSwaggerUi(router);
 
