@@ -4,6 +4,7 @@ import { InfrastructureDiType } from '../infrastructure-di-type';
 import { Configuration } from './Configuration';
 import { ExpressConfig } from '../express/express.interface';
 import { PostgresDatabaseConfiguration } from '../db/db.interface';
+import { TsoaRouteDocumentationCheck } from '../tsoa';
 
 export function configurationDiBootstrap(container: DependencyContainer) {
   container.register<ConfigurationCheck>(
@@ -22,5 +23,11 @@ export function configurationDiBootstrap(container: DependencyContainer) {
     InfrastructureDiType.PostgresDatabaseConfiguration,
     { useClass: Configuration },
     { lifecycle: Lifecycle.Singleton }
+  );
+
+  container.register<TsoaRouteDocumentationCheck>(
+    InfrastructureDiType.PrerequisiteCheck,
+    { useClass: TsoaRouteDocumentationCheck },
+    { lifecycle: Lifecycle.ContainerScoped }
   );
 }

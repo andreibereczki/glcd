@@ -2,8 +2,9 @@ import express, { urlencoded } from "express";
 import { bootstrapSwaggerUi } from "./openapi/swagger.bootstrap";
 import { errorHandlingMiddleware } from './middlewares/errorHandlingMiddleware';
 import { fallbackMiddleware } from './middlewares/fallbackMiddleware';
-import { RegisterRoutes } from "./routes/routes";
+import { RegisterRoutes } from "../../../build/routes/routes";
 import { Table } from 'console-table-printer';
+import cookieParser from 'cookie-parser';
 
 export function createServer() {
   const app: express.Application = express();
@@ -16,7 +17,8 @@ export function createServer() {
       extended: true,
     })
   );
-
+  // @ts-ignore
+  app.use(cookieParser());
   app.use(express.json());
 
   const router = express.Router();

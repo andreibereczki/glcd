@@ -26,4 +26,4 @@ const configuration = container.resolve<Configuration>(InfrastructureDiType.Conf
 const port = configuration.getPort();
 
 const server = createServer();
-server.listen(port, () => console.log(`Application is running at http://localhost:${port}`))
+server.listen(port, () => console.log(`Application is running at http://localhost:${port}`));

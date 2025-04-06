@@ -3,7 +3,7 @@
   "noImplicitAdditionalProperties": "throw-on-extras",
   "controllerPathGlobs": ["src/api/**/*Controller.ts"],
   "spec": {
-    "outputDirectory": "src/infrastructure/express/openapi",
+    "outputDirectory": "build/openapi",
     "specVersion": 3,
     "spec": {
       "info": {
@@ -20,7 +20,7 @@
     }
   },
   "routes": {
-    "routesDir": "src/infrastructure/express/routes",
+    "routesDir": "build/routes",
     "middlewareTemplate": "src/infrastructure/tsoa/no-body-validation-express-template.hbs",
     "iocModule": "src/infrastructure/tsoa/TsoaIoC"
   },

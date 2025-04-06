@@ -1,33 +1,31 @@
-import { Result } from "../../../shared";
-import { IPrerequisiteCheck } from "../../PrerequisiteChecks";
 import * as fs from "fs";
+import { PrerequisiteCheck, PrerequisiteCheckResult } from 'infrastructure/prerequisite-check.interface';
 import { injectable } from "tsyringe";
 
 @injectable()
-export class TsoaRouteDocumentationCheck implements IPrerequisiteCheck {
-  private static readonly _order: number = 4;
-  private static readonly _name: string = "Tsoa Routes and Documentation";
+export class TsoaRouteDocumentationCheck implements PrerequisiteCheck {
+  private static readonly _order: number = 2;
 
-  /**
-   * Check if tsoa routes and documentation are generated.
-   *
-   * @inheritdoc
-   */
-  public async runChecks(): Promise<Result> {
-    const routesPath = "../routes/routes.ts";
-    const openApiPath = "../openapi/swagger.json";
+  public async runChecks(): Promise<PrerequisiteCheckResult> {
+    const routesPath = "./build/routes/routes.ts";
+    const openApiPath = "./build/openapi/swagger.json";
+    const result: PrerequisiteCheckResult = {
+      isSuccess: false
+    };
 
-    if (fs.existsSync(routesPath)) {
-      return Result.fail(new Error("Routes are not generated."));
-    } else if (fs.existsSync(openApiPath)) {
-      return Result.fail(new Error("OpenApi documentation is not generated."));
+    if (!fs.existsSync(routesPath)) {
+      result.error = new Error("Routes are not generated.");
+      return result;
     }
 
-    return Result.ok();
-  }
+    if (!fs.existsSync(openApiPath)) {
+      result.error = new Error("OpenApi documentation is not generated.");
+      return result;
+    }
 
-  public get name(): string {
-    return TsoaRouteDocumentationCheck._name;
+    result.isSuccess = true;
+
+    return result;
   }
 
   public get order(): number {

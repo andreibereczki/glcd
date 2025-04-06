@@ -1,7 +1,7 @@
 import { version } from "../../../../package.json";
 import { Router } from 'express';
 import swaggerUi from "swagger-ui-express";
-import swaggerDocument from "./swagger.json";
+import swaggerDocument from "../../../../build/openapi/swagger.json";
 
 export const bootstrapSwaggerUi = (router: Router) => {
   const options = {

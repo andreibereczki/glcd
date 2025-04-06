@@ -27,10 +27,17 @@ export class Companies implements Repository<CompanyDto, AddCompanyDto> {
     return this._db.manyOrNone<CompanyDto>('SELECT * FROM companies');
   }
 
-  public async add(company: AddCompanyDto): Promise<void> {
+  public async add(company: AddCompanyDto): Promise<CompanyDto> {
     const columnSet = new this._pgp.helpers.ColumnSet(company, { table: 'companies' });
-    const query = this._pgp.helpers.insert(company, columnSet);
+    const query = this._pgp.helpers.insert(company, columnSet) + ' returning *';
 
-    await this._db.oneOrNone<CompanyDto>(query);
+    return this._db.one<CompanyDto>(query);
+  }
+
+  public async update(id: number, company: AddCompanyDto): Promise<void> {
+    const columnSet = new this._pgp.helpers.ColumnSet(company, { table: 'companies' });
+    const query = this._pgp.helpers.update(company, columnSet) + ' WHERE id = $1';
+
+    await this._db.oneOrNone<CompanyDto>(query, [id]);
   }
 }

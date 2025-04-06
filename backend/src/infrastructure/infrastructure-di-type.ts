@@ -5,5 +5,6 @@ export const InfrastructureDiType = {
   DatabaseInitialization: Symbol.for("DatabaseInitialization"),
   DatabaseInstance: Symbol.for("DatabaseInstance"),
   DatabaseInstanceHelper: Symbol.for("DatabaseInstanceHelper"),
-  CompaniesRepository: Symbol.for("CompaniesRepository")
+  CompaniesRepository: Symbol.for("CompaniesRepository"),
+  UsersRepository: Symbol.for("UsersRepository")
 };

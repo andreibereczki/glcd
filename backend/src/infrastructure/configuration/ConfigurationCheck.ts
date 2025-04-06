@@ -23,12 +23,11 @@ export class ConfigurationCheck implements PrerequisiteCheck {
       this._configuration.getPostgresConnectionString();
 
       result.isSuccess = true;
-
-      return result;
     } catch (error: any) {
       result.error = error;
-      return result;
     }
+
+    return result;
   }
 
   public get order(): number {
