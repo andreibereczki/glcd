@@ -10,14 +10,13 @@ export const routes: Routes = [
   },
   {
     path: '404',
-    title: 'Error 404 - Ressource Not Found',
+    title: 'Error 404 - Resource Not Found',
     component: NotFoundComponent
   },
   {
     path: '',
-    title: 'Companies',
-    loadComponent: () => import('./companies/container/container.component').then(m => m.ContainerComponent),
-    loadChildren: () => import('./companies/companies.routes').then(m => m.routes)
+    pathMatch: 'full',
+    redirectTo: 'companies'
   },
   {
     path: '**',
