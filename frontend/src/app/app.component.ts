@@ -1,14 +1,13 @@
-import { Router, RouterOutlet } from '@angular/router';
-import { Component, inject } from '@angular/core';
+import { RouterLink, RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
+import { MatAnchor } from '@angular/material/button';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, RouterLink, NgOptimizedImage, MatAnchor],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  public readonly title = 'frontend';
-
-  private readonly router = inject(Router);
 }
