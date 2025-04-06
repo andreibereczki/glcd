@@ -1,3 +1,9 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
 nav {
   padding: 1rem 1.3rem;
   background: var(--mat-sys-primary-container);
@@ -14,4 +20,15 @@ nav {
       align-items: center;
     }
   }
+}
+
+main {
+  flex-grow: 1;
+}
+
+footer {
+  padding: 1rem;
+  background: var(--mat-sys-background);
+  text-align: center;
+  font-size: .9rem;
 }

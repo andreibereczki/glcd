@@ -9,6 +9,11 @@ export const routes: Routes = [
     loadChildren: () => import('./companies/companies.routes').then(m => m.routes)
   },
   {
+    path: '404',
+    title: 'Error 404 - Ressource Not Found',
+    component: NotFoundComponent
+  },
+  {
     path: '',
     title: 'Companies',
     loadComponent: () => import('./companies/container/container.component').then(m => m.ContainerComponent),
@@ -16,6 +21,6 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    component: NotFoundComponent
+    redirectTo: '404'
   }
 ];
