@@ -4,5 +4,5 @@ export interface PrerequisiteCheckResult {
 }
 export interface PrerequisiteCheck {
   readonly order: number;
-  runChecks(): PrerequisiteCheckResult;
+  runChecks(): Promise<PrerequisiteCheckResult>;
 }

@@ -13,7 +13,7 @@ export class ConfigurationCheck implements PrerequisiteCheck {
     this._configuration = config;
   }
 
-  public runChecks() {
+  public async runChecks() {
     const result: PrerequisiteCheckResult = {
       isSuccess: false
     };

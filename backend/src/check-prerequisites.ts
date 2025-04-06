@@ -3,12 +3,12 @@ import { PrerequisiteCheck, PrerequisiteCheckResult } from './infrastructure/pre
 import { InfrastructureDiType } from './infrastructure/infrastructure-di-type';
 import { Table } from 'console-table-printer';
 
-export function checkPrerequisites(container: DependencyContainer): boolean {
+export async function checkPrerequisites(container: DependencyContainer): Promise<boolean> {
   const childContainer = container.createChildContainer();
   const prerequisiteChecks = childContainer.resolveAll<PrerequisiteCheck>(InfrastructureDiType.PrerequisiteCheck);
 
   try {
-    const [results, allSuccessful] = runAllChecks(prerequisiteChecks);
+    const [results, allSuccessful] = await runAllChecks(prerequisiteChecks);
 
     drawCheckTable(prerequisiteChecks, results);
 
@@ -18,13 +18,13 @@ export function checkPrerequisites(container: DependencyContainer): boolean {
   }
 }
 
-function runAllChecks(prerequisiteChecks: PrerequisiteCheck[]): [PrerequisiteCheckResult[], boolean] {
+async function runAllChecks(prerequisiteChecks: PrerequisiteCheck[]): Promise<[PrerequisiteCheckResult[], boolean]> {
   prerequisiteChecks.sort((check1, check2) => check1.order - check2.order);
 
   let allSuccessful = true;
   const results = [];
   for (const [index, check] of prerequisiteChecks.entries()) {
-    results[index] = check.runChecks();
+    results[index] = await check.runChecks();
 
     if (!results[index].isSuccess) {
       allSuccessful = false;

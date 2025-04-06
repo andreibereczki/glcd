@@ -1,0 +1,30 @@
+{
+  "entryFile": "src/main.ts",
+  "noImplicitAdditionalProperties": "throw-on-extras",
+  "controllerPathGlobs": ["src/api/**/*Controller.ts"],
+  "spec": {
+    "outputDirectory": "src/infrastructure/express/openapi",
+    "specVersion": 3,
+    "spec": {
+      "info": {
+        "title": "Glass Lewis Coding Challenge Rest API",
+        "description": "",
+        "version": "1"
+      },
+      "servers": [
+        {
+          "url": "/api",
+          "description": "Local development"
+        }
+      ]
+    }
+  },
+  "routes": {
+    "routesDir": "src/infrastructure/express/routes",
+    "middlewareTemplate": "src/infrastructure/tsoa/no-body-validation-express-template.hbs",
+    "iocModule": "src/infrastructure/tsoa/TsoaIoC"
+  },
+  "compilerOptions": {
+    "baseUrl": "/api"
+  }
+}
