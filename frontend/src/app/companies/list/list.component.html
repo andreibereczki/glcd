@@ -1,5 +1,11 @@
 <h1>{{pageTitle}}</h1>
-<app-search (search)="updateFilterCriteria($event)"></app-search>
+<div class="listing-actions">
+  <button mat-button [routerLink]="['../', 'create']">
+    <mat-icon>add</mat-icon>
+    Add new Company
+  </button>
+  <app-search (search)="updateFilterCriteria($event)"></app-search>
+</div>
 <table mat-table matSort [dataSource]="list" class="mat-elevation-z8">
   <ng-container matColumnDef="id">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>

@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, inject, OnInit, ViewChild } from '@angular/core';
 import { CompaniesDataProviderService, Company } from '../companies.data-provider.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import {
   MatCell,
   MatCellDef,
@@ -17,6 +17,8 @@ import {
 import { MatSort, MatSortHeader } from '@angular/material/sort';
 import { SearchComponent, SearchData, SearchDataCriteriaBy } from '../search/search.component';
 import { take } from 'rxjs';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-list',
@@ -34,7 +36,10 @@ import { take } from 'rxjs';
     MatCellDef,
     MatSort,
     MatSortHeader,
-    SearchComponent
+    SearchComponent,
+    MatButton,
+    MatIcon,
+    RouterLink
   ],
   styleUrl: './list.component.scss'
 })

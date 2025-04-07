@@ -1,3 +1,12 @@
 .mat-mdc-row:nth-child(even) {
   background-color: var(--mat-sys-surface-container-low);
 }
+
+.listing-actions {
+  display: flex;
+  align-items: center;
+
+  button {
+    transform: translateY(-10px);
+  }
+}

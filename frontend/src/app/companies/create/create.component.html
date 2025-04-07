@@ -1,1 +1,24 @@
-<p>create works!</p>
+<h1>Create a new Company</h1>
+<form [formGroup]="form" (ngSubmit)="create()">
+  <mat-form-field>
+    <mat-label>Company name</mat-label>
+    <input matInput type="text" formControlName="name">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Exchange</mat-label>
+    <input matInput type="text" formControlName="exchange">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Ticker</mat-label>
+    <input matInput type="text" formControlName="ticker">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Inis</mat-label>
+    <input matInput type="text" formControlName="isin">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Website</mat-label>
+    <input matInput type="text" formControlName="website">
+  </mat-form-field>
+  <button mat-stroked-button>Add</button>
+</form>

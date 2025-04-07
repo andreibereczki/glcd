@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 export interface Company {
-  id: number;
+  id?: number;
   name: string;
   exchange: string;
   ticker: string;
@@ -24,5 +24,9 @@ export class CompaniesDataProviderService {
 
   public filterByIsin(isin: string) {
     return this._http.get<Company>('http://localhost:3000/api/companies/isin/' + isin, { withCredentials: true });
+  }
+
+  public create(company: Company) {
+    return this._http.post('http://localhost:3000/api/companies', company, { withCredentials: true });
   }
 }

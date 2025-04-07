@@ -8,6 +8,7 @@ export const routes: Routes = [
   {
     path: 'create',
     component: CreateComponent,
+    title: 'Create a new Company',
   },
   {
     path: 'list',
