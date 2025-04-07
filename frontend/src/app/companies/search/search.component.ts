@@ -16,16 +16,7 @@ export interface SearchData {
 
 @Component({
   selector: 'app-search',
-  imports: [
-    MatFormField,
-    MatInput,
-    MatLabel,
-    ReactiveFormsModule,
-    MatFormField,
-    MatSelect,
-    MatOption,
-    MatButton
-  ],
+  imports: [MatFormField, MatInput, MatLabel, ReactiveFormsModule, MatFormField, MatSelect, MatOption, MatButton],
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss'
 })
@@ -33,16 +24,18 @@ export class SearchComponent {
   private readonly _fb = inject(FormBuilder);
 
   protected readonly form = this._fb.group({
-    keyword: ['', Validators.required],
-    by: ['', Validators.required]
+    // eslint-disable-next-line @typescript-eslint/unbound-method
+    by: ['', Validators.required],
+    // eslint-disable-next-line @typescript-eslint/unbound-method
+    keyword: ['', Validators.required]
   });
   protected isSearchCleared = true;
 
-  public search = output<SearchData | null>();
+  public searchCriteria = output<SearchData | null>();
 
   protected clearSearch(event: MouseEvent) {
     this.isSearchCleared = true;
-    this.search.emit(null);
+    this.searchCriteria.emit(null);
 
     event.preventDefault();
     event.stopPropagation();
@@ -50,6 +43,6 @@ export class SearchComponent {
 
   public sendFilterCriteriaToParent() {
     this.isSearchCleared = false;
-    this.search.emit(this.form.value as SearchData);
+    this.searchCriteria.emit(this.form.value as SearchData);
   }
 }

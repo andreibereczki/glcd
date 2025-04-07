@@ -3,16 +3,16 @@
     <nav>
       <ul>
         <li>
-          <a href="https://www.glasslewis.com/" title="Glass-Lewis Coding Challenge"><img ngSrc="assets/gl-logo.svg" width="150" height="50" alt="Glass Lewis Logo" priority=""></a>
+          <a href="https://www.glasslewis.com/" title="Glass-Lewis Coding Challenge" tabindex="0"><img ngSrc="assets/gl-logo.svg" width="150" height="50" alt="Glass Lewis Logo" priority=""></a>
         </li>
         <li>
-          <a routerLink="companies" mat-button>Companies</a>
+          <a routerLink="companies" mat-button tabindex="1">Companies</a>
         </li>
         <li class="spacer">
-          <a mat-button>Alerts</a>
+          <a mat-button tabIndex="2">Alerts</a>
         </li>
         <li>
-          <a mat-button (click)="authenticationService.logout()">Logout</a>
+          <a mat-button (click)="authenticationService.logout()" tabindex="3">Logout</a>
         </li>
       </ul>
     </nav>

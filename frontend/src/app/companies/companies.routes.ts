@@ -8,7 +8,7 @@ export const routes: Routes = [
   {
     path: 'create',
     component: CreateComponent,
-    title: 'Create a new Company',
+    title: 'Create a new Company'
   },
   {
     path: 'list',
@@ -29,6 +29,6 @@ export const routes: Routes = [
   {
     path: '',
     redirectTo: 'list',
-    pathMatch: 'full',
+    pathMatch: 'full'
   }
 ];

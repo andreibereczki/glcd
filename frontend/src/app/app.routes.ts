@@ -12,7 +12,7 @@ export const routes: Routes = [
     loadComponent: () => import('./companies/container/container.component').then(m => m.ContainerComponent),
     loadChildren: () => import('./companies/companies.routes').then(m => m.routes),
     canActivate: [authenticatedGuard],
-    providers: [CompaniesDataProviderService],
+    providers: [CompaniesDataProviderService]
   },
   {
     path: 'login',

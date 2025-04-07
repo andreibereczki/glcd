@@ -19,9 +19,12 @@ export class AuthenticationService {
   }
 
   public logout() {
-    this._http.get('http://localhost:3000/api/authentication/logout', { withCredentials: true }).pipe(
-      tap(() => localStorage.removeItem('authenticated')),
-      switchMap(() => this._router.navigate(['login']))
-    ).subscribe();
+    this._http
+      .get('http://localhost:3000/api/authentication/logout', { withCredentials: true })
+      .pipe(
+        tap(() => localStorage.removeItem('authenticated')),
+        switchMap(() => this._router.navigate(['login']))
+      )
+      .subscribe();
   }
 }

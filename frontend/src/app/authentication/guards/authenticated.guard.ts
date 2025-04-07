@@ -9,13 +9,15 @@ export const authenticatedGuard: CanActivateFn = () => {
   const router = inject(Router);
   const authenticationService = inject(AuthenticationService);
 
-  return http.get('http://localhost:3000/api/authentication/verify', {
-    withCredentials: true
-  }).pipe(
-    map(() => {
-      authenticationService.hasAuthenticated();
-      return true;
-    }),
-    catchError(() => of(router.parseUrl('login')))
-  );
+  return http
+    .get('http://localhost:3000/api/authentication/verify', {
+      withCredentials: true
+    })
+    .pipe(
+      map(() => {
+        authenticationService.hasAuthenticated();
+        return true;
+      }),
+      catchError(() => of(router.parseUrl('login')))
+    );
 };

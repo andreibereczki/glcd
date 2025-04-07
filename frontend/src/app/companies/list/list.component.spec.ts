@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { provideRouter } from '@angular/router';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ListComponent } from './list.component';
+import { routes } from '../../app.routes';
+import { CompaniesDataProviderService } from '../companies.data-provider.service';
 
 describe('ListComponent', () => {
   let component: ListComponent;
@@ -8,9 +11,9 @@ describe('ListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      providers: [provideHttpClientTesting(), provideRouter(routes), CompaniesDataProviderService],
       imports: [ListComponent]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ListComponent);
     component = fixture.componentInstance;

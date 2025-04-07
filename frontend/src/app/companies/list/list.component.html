@@ -4,7 +4,7 @@
     <mat-icon>add</mat-icon>
     Add new Company
   </button>
-  <app-search (search)="updateFilterCriteria($event)"></app-search>
+  <app-search (searchCriteria)="updateFilterCriteria($event)"></app-search>
 </div>
 <table mat-table matSort [dataSource]="list" class="mat-elevation-z8">
   <ng-container matColumnDef="id">

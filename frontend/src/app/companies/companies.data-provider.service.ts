@@ -19,11 +19,11 @@ export class CompaniesDataProviderService {
   }
 
   public filterById(id: string) {
-    return this._http.get<Company>('http://localhost:3000/api/companies/id/' + id, { withCredentials: true });
+    return this._http.get<Company>(`http://localhost:3000/api/companies/id/${id}`, { withCredentials: true });
   }
 
   public filterByIsin(isin: string) {
-    return this._http.get<Company>('http://localhost:3000/api/companies/isin/' + isin, { withCredentials: true });
+    return this._http.get<Company>(`http://localhost:3000/api/companies/isin/${isin}`, { withCredentials: true });
   }
 
   public create(company: Company) {
@@ -31,7 +31,7 @@ export class CompaniesDataProviderService {
   }
 
   public update(company: Company) {
-    const companyWithoutId = { ... company };
+    const companyWithoutId = { ...company };
     delete companyWithoutId.id;
 
     return this._http.put(`http://localhost:3000/api/companies/${company.id}`, companyWithoutId, { withCredentials: true });

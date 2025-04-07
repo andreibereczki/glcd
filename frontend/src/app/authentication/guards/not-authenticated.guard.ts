@@ -6,7 +6,7 @@ export const notAuthenticatedGuard: CanActivateFn = () => {
   const router = inject(Router);
   const authenticationService = inject(AuthenticationService);
 
-  if(authenticationService.isAuthenticated()) {
+  if (authenticationService.isAuthenticated()) {
     return router.parseUrl('/');
   }
 

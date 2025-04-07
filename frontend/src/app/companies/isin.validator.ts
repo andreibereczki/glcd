@@ -2,7 +2,7 @@ import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 export function isinValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
-    const value = control.value;
+    const value = control.value as string;
 
     if (value == null) {
       return null;
@@ -13,8 +13,6 @@ export function isinValidator(): ValidatorFn {
 
     const isValid = hasCorrectLength && startsWith2Letters;
 
-    return isValid
-      ? null
-      : { isinInvalid: true };
-  }
+    return isValid ? null : { isinInvalid: true };
+  };
 }

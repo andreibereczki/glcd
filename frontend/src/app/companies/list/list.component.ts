@@ -1,5 +1,4 @@
 import { AfterViewInit, Component, inject, OnInit, ViewChild } from '@angular/core';
-import { CompaniesDataProviderService, Company } from '../companies.data-provider.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import {
   MatCell,
@@ -15,10 +14,11 @@ import {
   MatTableDataSource
 } from '@angular/material/table';
 import { MatSort, MatSortHeader } from '@angular/material/sort';
-import { SearchComponent, SearchData, SearchDataCriteriaBy } from '../search/search.component';
 import { take } from 'rxjs';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
+import { SearchComponent, SearchData, SearchDataCriteriaBy } from '../search/search.component';
+import { CompaniesDataProviderService, Company } from '../companies.data-provider.service';
 
 @Component({
   selector: 'app-list',
@@ -49,7 +49,7 @@ export class ListComponent implements OnInit, AfterViewInit {
   protected readonly _dataProvider = inject(CompaniesDataProviderService);
 
   protected pageTitle: string | undefined;
-  protected list: MatTableDataSource<Company> = new MatTableDataSource();
+  protected list = new MatTableDataSource<Company>();
   protected displayedColumns: string[] = ['id', 'name', 'exchange', 'ticker', 'isin', 'website'];
 
   @ViewChild(MatSort)
@@ -60,8 +60,10 @@ export class ListComponent implements OnInit, AfterViewInit {
   }
 
   protected setDataFromRouteResolver() {
-    this._activatedRoute.data.pipe(take(1)).subscribe((data) => {
+    this._activatedRoute.data.pipe(take(1)).subscribe(data => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       this.pageTitle = data[Object.getOwnPropertySymbols(data)[0]];
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       this.list.data = data['companies'];
     });
   }
@@ -94,6 +96,6 @@ export class ListComponent implements OnInit, AfterViewInit {
   }
 
   public async edit(id: string) {
-    await this._router.navigate(['..', 'edit', id], {relativeTo: this._activatedRoute });
+    await this._router.navigate(['..', 'edit', id], { relativeTo: this._activatedRoute });
   }
 }
