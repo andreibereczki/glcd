@@ -1,10 +1,20 @@
-import { Controller, Get, Route, SuccessResponse, Response, Tags, Middlewares, Body, Post, Put, Path } from 'tsoa';
+import { Controller, Get, Route, SuccessResponse, Response, Tags, Middlewares, Post, Put, Path } from 'tsoa';
 import { inject, injectable } from 'tsyringe';
 import { InfrastructureDiType } from '../../infrastructure/infrastructure-di-type';
 import { AddCompanyDto, CompanyDto } from '../../infrastructure/repositories/Companies';
 import { Repository } from '../../infrastructure/repositories/Companies.interface';
 import { StatusCodes } from 'http-status-codes';
 import { authMiddleware } from '../../infrastructure/express/middlewares/authMiddleware';
+import { z } from 'zod';
+import { Body, ValidateBody } from 'infrastructure/zod/validation.decorators';
+
+const CompanySchema = z.object({
+  name: z.string(),
+  exchange: z.string(),
+  ticker: z.string(),
+  isin: z.string().length(12, "Inis must be 12 character long").refine((isin: string) => RegExp('^\\D{2}').test(isin), 'Inis must start with 2 letters (non-numeric)'),
+  website: z.string().optional(),
+});
 
 @injectable()
 @Route('companies')
@@ -58,18 +68,20 @@ export class CompaniesController extends Controller {
     return company;
   }
 
-  @SuccessResponse(StatusCodes.OK, 'Create new company record')
+  @SuccessResponse(StatusCodes.CREATED, 'Company created')
   @Response(StatusCodes.INTERNAL_SERVER_ERROR, 'Something went wrong')
   @Middlewares(authMiddleware)
   @Post()
+  @ValidateBody(CompanySchema)
   public async create(@Body() company: AddCompanyDto): Promise<CompanyDto> {
     return await this._companiesRepository.add!(company);
   }
 
-  @SuccessResponse(StatusCodes.OK, 'Update a company records')
+  @SuccessResponse(StatusCodes.OK, 'Company updated')
   @Response(StatusCodes.INTERNAL_SERVER_ERROR, 'Something went wrong')
   @Middlewares(authMiddleware)
   @Put("{companyId}")
+  @ValidateBody(CompanySchema)
   public async update(@Path() companyId: number, @Body() company: AddCompanyDto): Promise<void> {
     await this._companiesRepository.update!(companyId, company);
   }
