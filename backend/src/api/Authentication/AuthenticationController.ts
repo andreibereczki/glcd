@@ -54,7 +54,6 @@ export class AuthenticationController extends Controller {
 
   @SuccessResponse(StatusCodes.OK, 'Logout')
   @Response(StatusCodes.INTERNAL_SERVER_ERROR, 'Something went wrong')
-  @Middlewares(authMiddleware)
   @Get('logout')
   public async logout(): Promise<void> {
     this.setHeader('set-cookie', `token=logged-out; HttpOnly; Path=/api; Domain=localhost`);
