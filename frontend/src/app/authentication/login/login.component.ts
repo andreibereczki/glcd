@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
 import { MatFormField, MatInput, MatLabel, MatSuffix } from '@angular/material/input';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -27,18 +27,16 @@ import { Router } from '@angular/router';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
+  private readonly _fb = inject(FormBuilder);
+  private readonly _http = inject(HttpClient);
+  private readonly _router = inject(Router);
+
   protected hide = signal(true);
 
   protected form = this._fb.group({
     username: ['', Validators.required],
     password: ['', Validators.required]
   })
-
-  constructor(
-    private readonly _fb: FormBuilder,
-    private readonly _http: HttpClient,
-    private readonly _router: Router
-  ) { }
 
   protected login() {
     this._http.post('http://localhost:3000/api/authentication/login', this.form.value, {

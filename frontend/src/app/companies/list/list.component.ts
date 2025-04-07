@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, inject, OnInit, ViewChild } from '@angular/core';
-import { Company } from '../companies.data-provider.service';
+import { CompaniesDataProviderService, Company } from '../companies.data-provider.service';
 import { ActivatedRoute } from '@angular/router';
 import {
   MatCell,
@@ -15,6 +15,8 @@ import {
   MatTableDataSource
 } from '@angular/material/table';
 import { MatSort, MatSortHeader } from '@angular/material/sort';
+import { SearchComponent, SearchData, SearchDataCriteriaBy } from '../search/search.component';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-list',
@@ -32,11 +34,13 @@ import { MatSort, MatSortHeader } from '@angular/material/sort';
     MatCellDef,
     MatSort,
     MatSortHeader,
+    SearchComponent
   ],
   styleUrl: './list.component.scss'
 })
 export class ListComponent implements OnInit, AfterViewInit {
   protected readonly _activatedRoute = inject(ActivatedRoute);
+  protected readonly _dataProvider = inject(CompaniesDataProviderService);
 
   protected pageTitle: string | undefined;
   protected list: MatTableDataSource<Company> = new MatTableDataSource();
@@ -46,13 +50,40 @@ export class ListComponent implements OnInit, AfterViewInit {
   private readonly sort!: MatSort;
 
   public ngOnInit() {
-    this._activatedRoute.data.subscribe((data) => {
+    this.setDataFromRouteResolver();
+  }
+
+  protected setDataFromRouteResolver() {
+    this._activatedRoute.data.pipe(take(1)).subscribe((data) => {
       this.pageTitle = data[Object.getOwnPropertySymbols(data)[0]];
       this.list.data = data['companies'];
     });
   }
 
-  ngAfterViewInit() {
+  public ngAfterViewInit() {
     this.list.sort = this.sort;
+  }
+
+  public updateFilterCriteria(searchData: SearchData | null) {
+    if (searchData === null) {
+      this.setDataFromRouteResolver();
+      return;
+    }
+
+    let filterByFunction: typeof this._dataProvider.filterById | typeof this._dataProvider.filterByIsin;
+
+    switch (searchData.by) {
+      case SearchDataCriteriaBy.ID:
+        filterByFunction = this._dataProvider.filterById.bind(this._dataProvider);
+        break;
+
+      case SearchDataCriteriaBy.ISIN:
+        filterByFunction = this._dataProvider.filterByIsin.bind(this._dataProvider);
+        break;
+    }
+
+    filterByFunction(searchData.keyword).subscribe(company => {
+      this.list.data = [company];
+    });
   }
 }

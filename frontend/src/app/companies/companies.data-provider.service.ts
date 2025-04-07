@@ -17,4 +17,12 @@ export class CompaniesDataProviderService {
   public list() {
     return this._http.get<Company[]>('http://localhost:3000/api/companies', { withCredentials: true });
   }
+
+  public filterById(id: string) {
+    return this._http.get<Company>('http://localhost:3000/api/companies/id/' + id, { withCredentials: true });
+  }
+
+  public filterByIsin(isin: string) {
+    return this._http.get<Company>('http://localhost:3000/api/companies/isin/' + isin, { withCredentials: true });
+  }
 }

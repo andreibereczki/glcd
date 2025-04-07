@@ -1,0 +1,19 @@
+<form [formGroup]="form" (ngSubmit)="sendFilterCriteriaToParent()">
+  <mat-form-field>
+    <mat-label>Enter filter keyword</mat-label>
+    <input matInput type="text" formControlName="keyword">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Filter by</mat-label>
+    <mat-select formControlName="by">
+      <mat-option value="id">Id</mat-option>
+      <mat-option value="isin">Isin</mat-option>
+    </mat-select>
+  </mat-form-field>
+  @if (isSearchCleared) {
+    <button mat-stroked-button>Search</button>
+  }
+  @if (!isSearchCleared) {
+    <button mat-stroked-button (click)="clearSearch($event)">Clear</button>
+  }
+</form>
