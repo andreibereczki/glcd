@@ -24,7 +24,8 @@ export function createServer() {
 
   const router = express.Router();
   router.use(cors({
-    origin: 'http://localhost:4200'
+    origin: 'http://localhost:4200',
+    credentials: true
   }));
   RegisterRoutes(router);
   bootstrapSwaggerUi(router);

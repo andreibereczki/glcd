@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { NotFoundComponent } from './misc/not-found/not-found.component';
-import { authenticated } from './authentication/guard/authenticated';
+import { authenticatedGuard } from './authentication/guards/authenticated.guard';
+import { notAuthenticatedGuard } from './authentication/guards/not-authenticated.guard';
 import { LoginComponent } from './authentication/login/login.component';
 
 export const routes: Routes = [
@@ -9,12 +10,13 @@ export const routes: Routes = [
     title: 'Companies',
     loadComponent: () => import('./companies/container/container.component').then(m => m.ContainerComponent),
     loadChildren: () => import('./companies/companies.routes').then(m => m.routes),
-    canActivate: [authenticated]
+    canActivate: [authenticatedGuard]
   },
   {
     path: 'login',
     title: 'Login',
     component: LoginComponent,
+    canActivate: [notAuthenticatedGuard]
   },
   {
     path: '404',

@@ -43,7 +43,7 @@ export class AuthenticationController extends Controller {
       expiresIn: `${this._tokenExpirationTimeInSeconds/60/60}h`
     });
 
-    this.setHeader('set-cookie', `token=${token}; HttpOnly; Max-Age=${this._tokenExpirationTimeInSeconds}; Path=/api`);
+    this.setHeader('set-cookie', `token=${token}; HttpOnly; Max-Age=${this._tokenExpirationTimeInSeconds}; Path=/api; Domain=localhost`);
   }
 
   @SuccessResponse(StatusCodes.OK, 'Verify')
