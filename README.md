@@ -22,3 +22,11 @@ Authentication works via JWT tokens. The current expiration time for the JWT tok
 If you want to test how the frontend behaves if the token expires, please make the following changes:
 1. open the file ```backend/src/api/authentication/LoginController.ts```
 2. edit private property ```_tokenExpirationTimeInSeconds``` and set a new value (eg. 5)
+
+### Known limitation
+All of the below have not been worked on due to the nature of this challenge.
+The assumption is that production ready code is not expected, and that this is to be a broad overview of the candidates capabilities.
+1. error handling can use some improvement (both fe & be); i know, stack traces in http responses are a big no-no
+2. the UI was not given careful consideration (i consider this the job of a designer - ui / ux person). it is merely functional
+3. even though i can write backend code (so technically i'm a fullstack developer), i have a very strong preference towards frontend
+4. listing table could use more advanced filtering ui, selection, yada, yada 
