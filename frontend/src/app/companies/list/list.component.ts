@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, inject, OnInit, ViewChild } from '@angular/core';
 import { CompaniesDataProviderService, Company } from '../companies.data-provider.service';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import {
   MatCell,
   MatCellDef,
@@ -45,6 +45,7 @@ import { MatIcon } from '@angular/material/icon';
 })
 export class ListComponent implements OnInit, AfterViewInit {
   protected readonly _activatedRoute = inject(ActivatedRoute);
+  protected readonly _router = inject(Router);
   protected readonly _dataProvider = inject(CompaniesDataProviderService);
 
   protected pageTitle: string | undefined;
@@ -90,5 +91,9 @@ export class ListComponent implements OnInit, AfterViewInit {
     filterByFunction(searchData.keyword).subscribe(company => {
       this.list.data = [company];
     });
+  }
+
+  public async edit(id: string) {
+    await this._router.navigate(['..', 'edit', id], {relativeTo: this._activatedRoute });
   }
 }

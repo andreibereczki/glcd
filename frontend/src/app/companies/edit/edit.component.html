@@ -1,1 +1,40 @@
-<p>edit works!</p>
+<h1>{{ pageTitle }}</h1>
+<form [formGroup]="form" (ngSubmit)="update()">
+  <input type="hidden" formControlName="id">
+  <mat-form-field>
+    <mat-label>Company name</mat-label>
+    <input matInput type="text" formControlName="name">
+    @if (form.controls.name.invalid) {
+      <mat-error>{{showErrorMessage(form.controls.name)}}</mat-error>
+    }
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Exchange</mat-label>
+    <input matInput type="text" formControlName="exchange">
+    @if (form.controls.exchange.invalid) {
+      <mat-error>{{showErrorMessage(form.controls.exchange)}}</mat-error>
+    }
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Ticker</mat-label>
+    <input matInput type="text" formControlName="ticker">
+    @if (form.controls.ticker.invalid) {
+      <mat-error>{{showErrorMessage(form.controls.ticker)}}</mat-error>
+    }
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Inis</mat-label>
+    <input matInput type="text" formControlName="isin">
+    @if (form.controls.isin.invalid) {
+      <mat-error>{{showErrorMessage(form.controls.isin)}}</mat-error>
+    }
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Website</mat-label>
+    <input matInput type="text" formControlName="website">
+    @if (form.controls.website.invalid) {
+      <mat-error>{{showErrorMessage(form.controls.website)}}</mat-error>
+    }
+  </mat-form-field>
+  <button mat-stroked-button>Update</button>
+</form>

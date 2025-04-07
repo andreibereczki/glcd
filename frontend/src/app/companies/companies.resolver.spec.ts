@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 import { ResolveFn } from '@angular/router';
 
-import { companiesResolver } from './companies.resolver';
+import { getAllCompaniesResolver } from './companies.resolver';
 import { Company } from './companies.data-provider.service';
 
 describe('companiesResolver', () => {
   const executeResolver: ResolveFn<Company[]> = (...resolverParameters) =>
-      TestBed.runInInjectionContext(() => companiesResolver(...resolverParameters));
+      TestBed.runInInjectionContext(() => getAllCompaniesResolver(...resolverParameters));
 
   beforeEach(() => {
     TestBed.configureTestingModule({});

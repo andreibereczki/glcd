@@ -36,7 +36,7 @@ export class CreateComponent {
 
   protected create() {
     this._dataSource.create(this.form.getRawValue() as Company).subscribe(async () => {
-      await this._router.navigate(['../', 'list'], { relativeTo: this._activatedRoute });
+      await this._router.navigate(['..', 'list'], { relativeTo: this._activatedRoute });
     });
   }
 

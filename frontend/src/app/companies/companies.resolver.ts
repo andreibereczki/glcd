@@ -1,9 +1,15 @@
-import { ResolveFn } from '@angular/router';
+import { ActivatedRouteSnapshot, ResolveFn } from '@angular/router';
 import { CompaniesDataProviderService, Company } from './companies.data-provider.service';
 import { inject } from '@angular/core';
 
-export const companiesResolver: ResolveFn<Company[]> = () => {
+export const getAllCompaniesResolver: ResolveFn<Company[]> = () => {
   const provider = inject(CompaniesDataProviderService);
 
   return provider.list();
 };
+
+export const getCompanyById: ResolveFn<Company> = (route: ActivatedRouteSnapshot) => {
+  const provider = inject(CompaniesDataProviderService);
+
+  return provider.filterById(route.params['id']);
+}

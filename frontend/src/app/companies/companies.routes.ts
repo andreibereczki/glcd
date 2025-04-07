@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { CreateComponent } from './create/create.component';
 import { EditComponent } from './edit/edit.component';
 import { ListComponent } from './list/list.component';
-import { companiesResolver } from './companies.resolver';
+import { getAllCompaniesResolver, getCompanyById } from './companies.resolver';
 
 export const routes: Routes = [
   {
@@ -15,12 +15,16 @@ export const routes: Routes = [
     component: ListComponent,
     title: 'Companies Listing',
     resolve: {
-      companies: companiesResolver
+      companies: getAllCompaniesResolver
     }
   },
   {
     path: 'edit/:id',
     component: EditComponent,
+    title: 'Edit existing Company',
+    resolve: {
+      company: getCompanyById
+    }
   },
   {
     path: '',

@@ -29,4 +29,11 @@ export class CompaniesDataProviderService {
   public create(company: Company) {
     return this._http.post('http://localhost:3000/api/companies', company, { withCredentials: true });
   }
+
+  public update(company: Company) {
+    const companyWithoutId = { ... company };
+    delete companyWithoutId.id;
+
+    return this._http.put(`http://localhost:3000/api/companies/${company.id}`, companyWithoutId, { withCredentials: true });
+  }
 }

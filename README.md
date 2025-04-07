@@ -31,3 +31,5 @@ The assumption is that production ready code is not expected, and that this is t
 3. UI could benefit from a better responsiveness concept
 4. even though i can write backend code (so technically i'm a fullstack developer), i have a very strong preference towards frontend
 5. listing table could use more advanced filtering ui, selection, yada, yada
+6. frontend api request need more abstraction
+7. unit testing is not complete. i only wrote a couple of "demo" unit tests. anything else would take too much time
