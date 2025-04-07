@@ -3,6 +3,7 @@ import { NotFoundComponent } from './misc/not-found/not-found.component';
 import { authenticatedGuard } from './authentication/guards/authenticated.guard';
 import { notAuthenticatedGuard } from './authentication/guards/not-authenticated.guard';
 import { LoginComponent } from './authentication/login/login.component';
+import { CompaniesDataProviderService } from './companies/companies.data-provider.service';
 
 export const routes: Routes = [
   {
@@ -10,7 +11,8 @@ export const routes: Routes = [
     title: 'Companies',
     loadComponent: () => import('./companies/container/container.component').then(m => m.ContainerComponent),
     loadChildren: () => import('./companies/companies.routes').then(m => m.routes),
-    canActivate: [authenticatedGuard]
+    canActivate: [authenticatedGuard],
+    providers: [CompaniesDataProviderService],
   },
   {
     path: 'login',
