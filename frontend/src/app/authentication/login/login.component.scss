@@ -14,9 +14,3 @@ form {
 mat-form-field {
   width: 25rem;
 }
-
-/* specific chrome pseudo-selector */
-//noinspection CssInvalidPseudoSelector
-input:-internal-autofill-selected {
-  background-color: inherit !important;
-}

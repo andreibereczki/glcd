@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
-import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
+import { MatFormField, MatInput, MatLabel, MatSuffix } from '@angular/material/input';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -20,23 +20,25 @@ import { Router } from '@angular/router';
     ReactiveFormsModule,
     MatIconButton,
     MatIcon,
-    MatButton
+    MatButton,
+    MatSuffix
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
   protected hide = signal(true);
-  protected clickEvent(event: MouseEvent) {
-    this.hide.set(!this.hide());
-    event.stopPropagation();
-  }
+
   protected form = this._fb.group({
     username: ['', Validators.required],
     password: ['', Validators.required]
   })
 
-  constructor(private readonly _fb: FormBuilder, private readonly _http: HttpClient, private readonly _router: Router) { }
+  constructor(
+    private readonly _fb: FormBuilder,
+    private readonly _http: HttpClient,
+    private readonly _router: Router
+  ) { }
 
   protected login() {
     this._http.post('http://localhost:3000/api/authentication/login', this.form.value, {
@@ -44,5 +46,11 @@ export class LoginComponent {
     }).subscribe(async () => {
       await this._router.navigate(['/']);
     });
+  }
+
+  protected togglePasswordVisibility(event: MouseEvent) {
+    this.hide.set(!this.hide());
+    event.stopPropagation();
+    event.preventDefault();
   }
 }
