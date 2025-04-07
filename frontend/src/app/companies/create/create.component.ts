@@ -1,9 +1,10 @@
 import { Component, inject } from '@angular/core';
-import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatError, MatFormField, MatInput, MatLabel } from '@angular/material/input';
+import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { CompaniesDataProviderService, Company } from '../companies.data-provider.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { isinValidator } from '../isin.validator';
 
 @Component({
   selector: 'app-create',
@@ -13,7 +14,8 @@ import { ActivatedRoute, Router } from '@angular/router';
     MatLabel,
     ReactiveFormsModule,
     MatFormField,
-    MatButton
+    MatButton,
+    MatError
   ],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss'
@@ -28,13 +30,29 @@ export class CreateComponent {
     name: ['', Validators.required],
     exchange: ['', Validators.required],
     ticker: ['', Validators.required],
-    isin: ['', Validators.required],
-    website: ['']
+    isin: ['', [Validators.required, isinValidator()]],
+    website: ['', Validators.pattern(RegExp('^[A-Za-z][A-Za-z\d.+-]*:\/*(?:\w+(?::\w+)?@)?[^\s/]+(?::\d+)?(?:\/[\w#!:.?+=&%@\\-/]*)?$'))]
   });
 
   protected create() {
     this._dataSource.create(this.form.getRawValue() as Company).subscribe(async () => {
       await this._router.navigate(['../', 'list'], { relativeTo: this._activatedRoute });
     });
+  }
+
+  protected showErrorMessage(control: FormControl): string {
+    if (control.hasError('required')) {
+      return 'Field is required. Please provide a value';
+    }
+
+    if (control.hasError('pattern')) {
+      return 'Value must be a valid URL.'
+    }
+
+    if (control.hasError('isinInvalid')) {
+      return 'Isin value must start with 2 letters and be 12 characters long';
+    }
+
+    return 'Unknown error. Please contact administrator.'
   }
 }

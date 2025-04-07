@@ -12,7 +12,7 @@ const CompanySchema = z.object({
   name: z.string(),
   exchange: z.string(),
   ticker: z.string(),
-  isin: z.string().length(12, "Inis must be 12 character long").refine((isin: string) => RegExp('^\\D{2}').test(isin), 'Inis must start with 2 letters (non-numeric)'),
+  isin: z.string().length(12, "Inis must be 12 character long").refine((isin: string) => RegExp('^[a-zA-Z]{2}').test(isin), 'Inis must start with 2 letters (non-numeric)'),
   website: z.string().optional(),
 });
 
