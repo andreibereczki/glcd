@@ -1,7 +1,8 @@
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { MatAnchor } from '@angular/material/button';
+import { AuthenticationService } from './authentication/services/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -10,4 +11,5 @@ import { MatAnchor } from '@angular/material/button';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
+  protected readonly authenticationService = inject(AuthenticationService);
 }

@@ -1,15 +1,20 @@
-<header>
-  <nav>
-    <ul>
-      <li>
-        <a href="https://www.glasslewis.com/" title="Glass-Lewis Coding Challenge"><img ngSrc="assets/gl-logo.svg" width="150" height="50" alt="Glass Lewis Logo" priority=""></a>
-      </li>
-      <li>
-        <a routerLink="companies" mat-button>Companies</a>
-      </li>
-    </ul>
-  </nav>
-</header>
+@if (authenticationService.isAuthenticated()) {
+  <header>
+    <nav>
+      <ul>
+        <li>
+          <a href="https://www.glasslewis.com/" title="Glass-Lewis Coding Challenge"><img ngSrc="assets/gl-logo.svg" width="150" height="50" alt="Glass Lewis Logo" priority=""></a>
+        </li>
+        <li>
+          <a routerLink="companies" mat-button>Companies</a>
+        </li>
+        <li>
+          <a mat-button (click)="authenticationService.logout()">Logout</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+}
 
 <main>
   <router-outlet />

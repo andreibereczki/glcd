@@ -18,6 +18,7 @@ export const routes: Routes = [
   },
   {
     path: '',
-    component: ListComponent,
+    redirectTo: 'list',
+    pathMatch: 'full',
   }
 ];
