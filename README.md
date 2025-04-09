@@ -30,7 +30,7 @@ From root folder:
 ### Note
 Authentication works via JWT tokens. The current expiration time for the JWT token is 2 hours.
 If you want to test how the frontend behaves if the token expires, please make the following changes:
-1. Open the file ```backend/src/api/authentication/LoginController.ts```
+1. Open the file ```backend/src/api/authentication/AuthenticationController.ts```
 2. Edit private property ```_tokenExpirationTimeInSeconds``` and set a new value (eg. 5)
 
 ### Known limitation
