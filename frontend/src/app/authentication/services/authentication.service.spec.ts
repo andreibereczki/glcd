@@ -3,13 +3,14 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideRouter } from '@angular/router';
 import { AuthenticationService } from './authentication.service';
 import { routes } from '../../app.routes';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('AuthenticationService', () => {
   let service: AuthenticationService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [provideHttpClientTesting(), provideRouter(routes)]
+      providers: [provideHttpClient(), provideHttpClientTesting(), provideRouter(routes)]
     });
     service = TestBed.inject(AuthenticationService);
   });
