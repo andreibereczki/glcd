@@ -1,5 +1,5 @@
-import { Configuration } from "./Configuration";
-import { inject, injectable } from "tsyringe";
+import { Configuration } from './Configuration';
+import { inject, injectable } from 'tsyringe';
 import { PrerequisiteCheck, PrerequisiteCheckResult } from '../prerequisite-check.interface';
 import { InfrastructureDiType } from '../infrastructure-di-type';
 
@@ -23,8 +23,8 @@ export class ConfigurationCheck implements PrerequisiteCheck {
       this._configuration.getPostgresConnectionString();
 
       result.isSuccess = true;
-    } catch (error: any) {
-      result.error = error;
+    } catch (error: unknown) {
+      result.error = error as Error;
     }
 
     return result;

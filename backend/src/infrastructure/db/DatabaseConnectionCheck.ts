@@ -1,4 +1,4 @@
-import { inject, injectable } from "tsyringe";
+import { inject, injectable } from 'tsyringe';
 import { InfrastructureDiType } from '../infrastructure-di-type';
 import { ExtendedDatabaseProtocol } from './db.interface';
 import { PrerequisiteCheck, PrerequisiteCheckResult } from '../prerequisite-check.interface';
@@ -22,8 +22,8 @@ export class DatabaseConnectionCheck implements HealthCheck, PrerequisiteCheck {
       await this.checkConnectionStatus();
       result.isSuccess = true;
       return result;
-    } catch (error: any) {
-      result.error = error;
+    } catch (error: unknown) {
+      result.error = error as Error;
       return result;
     }
   }
@@ -36,8 +36,8 @@ export class DatabaseConnectionCheck implements HealthCheck, PrerequisiteCheck {
     try {
       const result = await this._db.query('SELECT 1;');
       console.log(`Postgres database connection has been established successfully and the rowCount for Select query is: ${result.length}`);
-    } catch (e: any) {
-      console.error(`Failed to connect to the database due to the reason: ${e.stack}`);
+    } catch (e: unknown) {
+      console.error(`Failed to connect to the database due to the reason: ${(e as Error).stack}`);
       throw e;
     }
   }

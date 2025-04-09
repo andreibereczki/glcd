@@ -12,7 +12,7 @@ export function authMiddleware(req: Request, res: Response, next: NextFunction) 
 
   try {
     jwt.verify(token, 'glass-lewis-super-secret-key');
-  } catch (e) {
+  } catch {
     res.status(StatusCodes.UNAUTHORIZED).end();
     return;
   }

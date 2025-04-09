@@ -17,6 +17,9 @@ Optional:
 4. Login with username: pbadmin@pgadmin.com & password: postgres
 5. As you browse to the created database, you will be asked for the db password: postgres
 
+## Linting
+1. from root run ```npm run lint --workspaces```
+
 ### Note
 Authentication works via JWT tokens. The current expiration time for the JWT token is 2 hours.
 If you want to test how the frontend behaves if the token expires, please make the following changes:

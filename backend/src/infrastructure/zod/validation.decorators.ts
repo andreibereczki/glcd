@@ -1,7 +1,7 @@
 import { ZodSchema } from 'zod';
 
 export function Body() {
-  return function (target: Object, propertyKey: string | symbol, parameterIndex: number) {
+  return function (target: object, propertyKey: string | symbol, parameterIndex: number) {
     const existingMetadata = Reflect.getOwnMetadata('Body', target, propertyKey) || [];
     existingMetadata.push(parameterIndex);
     Reflect.defineMetadata('Body', existingMetadata, target, propertyKey);
@@ -12,8 +12,7 @@ export function ValidateBody(validationSchema: ZodSchema) {
   return function (target: object, propertyKey: string | symbol, descriptor: PropertyDescriptor) {
     const originalMethod = descriptor.value;
 
-
-    descriptor.value = async function (...args: any[]) {
+    descriptor.value = async function (...args: unknown[]) {
       // Retrieve the list of indices of the parameters that are decorated
       // in order to retrieve the body
       const bodyCandidates: number[] = Reflect.getOwnMetadata('Body', target, propertyKey) || [];

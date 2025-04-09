@@ -14,9 +14,7 @@ import { authMiddleware } from '../../infrastructure/express/middlewares/authMid
 export class AuthenticationController extends Controller {
   private readonly _tokenExpirationTimeInSeconds = 2 * 60 * 60;
 
-  constructor(
-    @inject(InfrastructureDiType.UsersRepository) private readonly _usersRepository: Repository<UserDto, AddUserDto>
-  ) {
+  constructor(@inject(InfrastructureDiType.UsersRepository) private readonly _usersRepository: Repository<UserDto, AddUserDto>) {
     super();
   }
 
@@ -31,16 +29,16 @@ export class AuthenticationController extends Controller {
       return;
     }
 
-    // @ts-ignore
+    // @ts-expect-error compare returns a promise. the @types library is broken
     const isCorrectPassword = await compare(body.password, user.password);
 
-    if(!isCorrectPassword) {
+    if (!isCorrectPassword) {
       this.setStatus(StatusCodes.UNAUTHORIZED);
       return;
     }
 
     const token = jwt.sign({ username: body.username }, 'glass-lewis-super-secret-key', {
-      expiresIn: `${this._tokenExpirationTimeInSeconds/60/60}h`
+      expiresIn: `${this._tokenExpirationTimeInSeconds / 60 / 60}h`
     });
 
     this.setHeader('set-cookie', `token=${token}; HttpOnly; Max-Age=${this._tokenExpirationTimeInSeconds}; Path=/api; Domain=localhost`);

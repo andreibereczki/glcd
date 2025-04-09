@@ -1,25 +1,24 @@
-import { defineConfig } from "eslint/config";
-import globals from "globals";
-import js from "@eslint/js";
-import eslintTs from "typescript-eslint";
+import { defineConfig } from 'eslint/config';
+import globals from 'globals';
+import js from '@eslint/js';
+import eslintTs from 'typescript-eslint';
 import eslint from '@eslint/js';
 import angular from 'angular-eslint';
 import prettier from 'eslint-plugin-prettier';
 import importPlugin from 'eslint-plugin-import';
 
-
 export default defineConfig([
   {
-    ignores: ["**/dist/", "**/coverage/", "**/.angular/"]
+    ignores: ['**/dist/', '**/coverage/', '**/.angular/']
   },
   {
-    files: ["**/*.{js,mjs,cjs}"],
+    files: ['**/*.{js,mjs,cjs}'],
     languageOptions: { globals: globals.browser },
     plugins: { js },
-    extends: ["js/recommended"]
+    extends: ['js/recommended']
   },
   {
-    files: ["**/*.ts"],
+    files: ['**/*.ts'],
     languageOptions: {
       globals: globals.browser,
       parserOptions: {
@@ -27,75 +26,69 @@ export default defineConfig([
         tsconfigRootDir: import.meta.dirname
       }
     },
-    extends: [
-      eslint.configs.recommended,
-      ...eslintTs.configs.recommendedTypeChecked,
-      ...eslintTs.configs.stylisticTypeChecked,
-      ...angular.configs.tsRecommended,
-    ],
+    extends: [eslint.configs.recommended, ...eslintTs.configs.recommendedTypeChecked, ...eslintTs.configs.stylisticTypeChecked, ...angular.configs.tsRecommended],
     plugins: { prettier, importPlugin },
     processor: angular.processInlineTemplates,
     rules: {
-      "@angular-eslint/directive-selector": [
-        "error",
+      '@angular-eslint/directive-selector': [
+        'error',
         {
-          type: "attribute",
-          prefix: "app",
-          style: "camelCase",
-        },
+          type: 'attribute',
+          prefix: 'app',
+          style: 'camelCase'
+        }
       ],
-      "@angular-eslint/component-selector": [
-        "error",
+      '@angular-eslint/component-selector': [
+        'error',
         {
-          type: "element",
-          prefix: "app",
-          style: "kebab-case",
-        },
+          type: 'element',
+          prefix: 'app',
+          style: 'kebab-case'
+        }
       ],
-      "@typescript-eslint/strict-boolean-expressions": "error",
-      "@typescript-eslint/prefer-readonly": "error",
-      "@typescript-eslint/no-inferrable-types": "error",
-      "@typescript-eslint/no-shadow": "error",
-      "@typescript-eslint/no-unnecessary-type-assertion": "off",
-      "@typescript-eslint/explicit-member-accessibility": [
-        "error",
+      '@typescript-eslint/strict-boolean-expressions': 'error',
+      '@typescript-eslint/prefer-readonly': 'error',
+      '@typescript-eslint/no-inferrable-types': 'error',
+      '@typescript-eslint/no-shadow': 'error',
+      '@typescript-eslint/no-unnecessary-type-assertion': 'off',
+      '@typescript-eslint/explicit-member-accessibility': [
+        'error',
         {
-          "accessibility": "explicit",
-          "overrides": {
-            "constructors": "no-public"
+          accessibility: 'explicit',
+          overrides: {
+            constructors: 'no-public'
           }
         }
       ],
-      "linebreak-style": ["warn", "unix"],
-      "require-jsdoc": 0,
-      "valid-jsdoc": ["off"],
-      "prefer-template": "error",
-      "curly": ["error", "all"],
-      "arrow-body-style": ["error", "as-needed"],
-      "eqeqeq": ["error", "always", { "null": "ignore" }],
-      "sort-imports": [
-        "warn",
+      'linebreak-style': ['warn', 'unix'],
+      'require-jsdoc': 0,
+      'valid-jsdoc': ['off'],
+      'prefer-template': 'error',
+      curly: ['error', 'all'],
+      'arrow-body-style': ['error', 'as-needed'],
+      eqeqeq: ['error', 'always', { null: 'ignore' }],
+      'sort-imports': [
+        'warn',
         {
-          "ignoreCase": true,
-          "ignoreDeclarationSort": true
+          ignoreCase: true,
+          ignoreDeclarationSort: true
         }
       ],
-      "importPlugin/order": [
-        "error",
+      'importPlugin/order': [
+        'error',
         {
-          "groups": ["external", "builtin", "internal", "sibling", "index", "parent", "object", "type"]
+          groups: ['external', 'builtin', 'internal', 'sibling', 'index', 'parent', 'object', 'type']
         }
       ],
-      "importPlugin/named": "off",
-      "prettier/prettier": "error"
-    },
+      'importPlugin/named': 'off',
+      'prettier/prettier': 'error'
+    }
   },
   {
-    files: ["**/*.html"],
-    extends: [
-      ...angular.configs.templateRecommended,
-      ...angular.configs.templateAccessibility,
-    ],
-    rules: {},
+    files: ['**/*.html'],
+    extends: [...angular.configs.templateRecommended, ...angular.configs.templateAccessibility],
+    rules: {
+      '@angular-eslint/template/click-events-have-key-events': 'off'
+    }
   }
 ]);
