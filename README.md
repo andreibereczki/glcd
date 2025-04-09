@@ -1,6 +1,7 @@
 # Glass Lewis Coding Challenge
 
 ## Development Setup
+From root folder:
 1. Install package dependencies with ```npm i```
 2. Start containers for postgresql and pgAdmin with: ```npm run start:docker```
 3. Start backend api server with: ```npm run start:backend```
