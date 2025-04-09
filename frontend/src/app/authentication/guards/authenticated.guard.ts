@@ -18,6 +18,9 @@ export const authenticatedGuard: CanActivateFn = () => {
         authenticationService.hasAuthenticated();
         return true;
       }),
-      catchError(() => of(router.parseUrl('login')))
+      catchError(() => {
+        authenticationService.logout();
+        return of(router.parseUrl('login'));
+      })
     );
 };
