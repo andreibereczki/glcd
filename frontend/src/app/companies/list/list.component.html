@@ -33,7 +33,10 @@
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="edit(row.id)"></tr>
+  <tr (click)="edit(row.id)" *matRowDef="let row; columns: displayedColumns" mat-row></tr>
+  <tr class="mat-mdc-row" *matNoDataRow>
+    <td class="mat-mdc-cell" colspan="6">No data matching the filter</td>
+  </tr>
 </table>
 
 

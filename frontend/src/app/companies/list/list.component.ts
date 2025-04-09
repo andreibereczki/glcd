@@ -8,13 +8,14 @@ import {
   MatHeaderCellDef,
   MatHeaderRow,
   MatHeaderRowDef,
+  MatNoDataRow,
   MatRow,
   MatRowDef,
   MatTable,
   MatTableDataSource
 } from '@angular/material/table';
 import { MatSort, MatSortHeader } from '@angular/material/sort';
-import { take } from 'rxjs';
+import { catchError, of, take } from 'rxjs';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { SearchComponent, SearchData, SearchDataCriteriaBy } from '../search/search.component';
@@ -39,7 +40,8 @@ import { CompaniesDataProviderService, Company } from '../companies.data-provide
     SearchComponent,
     MatButton,
     MatIcon,
-    RouterLink
+    RouterLink,
+    MatNoDataRow
   ],
   styleUrl: './list.component.scss'
 })
@@ -90,9 +92,15 @@ export class ListComponent implements OnInit, AfterViewInit {
         break;
     }
 
-    filterByFunction(searchData.keyword).subscribe(company => {
-      this.list.data = [company];
-    });
+    filterByFunction(searchData.keyword)
+      .pipe(catchError(() => of(undefined)))
+      .subscribe((company: Company | undefined) => {
+        if (company === undefined) {
+          this.list.data = [];
+          return;
+        }
+        this.list.data = [company];
+      });
   }
 
   public async edit(id: string) {

@@ -1,5 +1,12 @@
-.mat-mdc-row:nth-child(even) {
-  background-color: var(--mat-sys-surface-container-low);
+.mat-mdc-row {
+  &:nth-child(even) {
+    background-color: var(--mat-sys-surface-container-low);
+  }
+  &.mat-mdc-no-data-row .mat-mdc-cell {
+    font: var(--mat-sys-title-small);
+    text-align: center;
+    background-color: var(--mat-sys-surface-container-low);
+  }
 }
 
 .listing-actions {
