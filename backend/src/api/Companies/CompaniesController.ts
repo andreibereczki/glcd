@@ -12,17 +12,18 @@ const CompanySchema = z.object({
   name: z.string(),
   exchange: z.string(),
   ticker: z.string(),
-  isin: z.string().length(12, "Inis must be 12 character long").refine((isin: string) => RegExp('^[a-zA-Z]{2}').test(isin), 'Inis must start with 2 letters (non-numeric)'),
-  website: z.string().optional(),
+  isin: z
+    .string()
+    .length(12, 'Isin must be 12 character long')
+    .refine((isin: string) => RegExp('^[a-zA-Z]{2}').test(isin), 'Isin must start with 2 letters (non-numeric)'),
+  website: z.string().optional()
 });
 
 @injectable()
 @Route('companies')
 @Tags('Companies')
 export class CompaniesController extends Controller {
-  constructor(
-    @inject(InfrastructureDiType.CompaniesRepository)private readonly _companiesRepository: Repository<CompanyDto, AddCompanyDto>
-  ) {
+  constructor(@inject(InfrastructureDiType.CompaniesRepository) private readonly _companiesRepository: Repository<CompanyDto, AddCompanyDto>) {
     super();
   }
 
@@ -37,7 +38,7 @@ export class CompaniesController extends Controller {
   @SuccessResponse(StatusCodes.OK, 'Get company record by Id')
   @Response(StatusCodes.INTERNAL_SERVER_ERROR, 'Something went wrong')
   @Middlewares(authMiddleware)
-  @Get("id/{companyId}")
+  @Get('id/{companyId}')
   public async getById(@Path() companyId: number): Promise<CompanyDto | null> {
     const company = await this._companiesRepository.getByField!({
       id: companyId
@@ -54,7 +55,7 @@ export class CompaniesController extends Controller {
   @SuccessResponse(StatusCodes.OK, 'Get company record by ISIN')
   @Response(StatusCodes.INTERNAL_SERVER_ERROR, 'Something went wrong')
   @Middlewares(authMiddleware)
-  @Get("isin/{companyIsin}")
+  @Get('isin/{companyIsin}')
   public async getByIsin(@Path() companyIsin: string): Promise<CompanyDto | null> {
     const company = await this._companiesRepository.getByField!({
       isin: companyIsin
@@ -80,7 +81,7 @@ export class CompaniesController extends Controller {
   @SuccessResponse(StatusCodes.OK, 'Company updated')
   @Response(StatusCodes.INTERNAL_SERVER_ERROR, 'Something went wrong')
   @Middlewares(authMiddleware)
-  @Put("{companyId}")
+  @Put('{companyId}')
   @ValidateBody(CompanySchema)
   public async update(@Path() companyId: number, @Body() company: AddCompanyDto): Promise<void> {
     await this._companiesRepository.update!(companyId, company);
